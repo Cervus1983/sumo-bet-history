@@ -2,34 +2,46 @@ library(rvest)
 library(stringr)
 library(tidyverse)
 
-list.files("html", pattern = ".+\\.html$") %>% 
+"html/marathonbet/2018.03" %>% 
+	list.files(
+		pattern = ".+\\.html$",
+		full.names = TRUE
+	) %>% 
 	lapply(
-		function(file_name) file_name %>% 
-			paste("html", ., sep = "/") %>% 
-			readChar(., file.info(.)$size) %>% 
+		function(fn) fn %>% 
 			read_html() %>% 
-			html_nodes("table.history-result-main") %>% 
-			html_table() %>% 
-			do.call(rbind, .) %>% 
-			mutate(basho = substr(file_name, 1, 6))
+			html_nodes("table.history-result") %>% 
+			html_table(header = TRUE) %>% 
+			.[[1]] %>% 
+			.[c(TRUE, FALSE), ]
 	) %>% 
 	do.call(rbind, .) %>% 
+	select(-4) %>% 
 	transmute(
-		basho,
-		ts = sprintf(
-			"%s-%s-%02d %s",
-			substr(basho, 1, 4),
-			substr(basho, 5, 6),
-			as.integer(str_extract(X1, "^\\d+")),
-			str_extract(X1, "\\d{2}:\\d{2}$")
-		),
-		stake = as.numeric(str_extract(X2, "\\d+\\.?\\d*")),
-		rikishi = str_extract(X4, "\\w+$"),
-		paid_out = as.numeric(str_extract(X5, "\\d+\\.?\\d*"))
+		ts = Date %>% 
+			as.POSIXct(format = "%d %b%H:%M") %>% 
+			format("%Y-%m-%d %H:%M"),
+		winner = sub("^Winner - ", "", Bet),
+		stake = as.numeric(str_extract(`Total Stake`, "\\d+\\.?\\d*")),
+		return = as.numeric(str_extract(Return, "\\d+\\.?\\d*")),
+		status = Status,
+		odds = Odds
 	) %>% 
-	#summarise_if(is.numeric, sum)
-	#View()
-	write_csv(
-		path = "sumo-bet_history.csv",
-		append = TRUE
+	#View() %>% 
+	write_csv("csv/marathonbet/2018.03.csv")
+
+"csv/marathonbet/2018.03.csv" %>% 
+	read_csv() %>% 
+	group_by(status) %>% 
+	summarise(
+		bets = n(),
+		stake = sum(stake),
+		return = sum(return)
+	) %>% 
+	rbind(
+		.,
+		data.frame(
+			status = "Total",
+			t(colSums(.[, -1]))
+		)
 	)
