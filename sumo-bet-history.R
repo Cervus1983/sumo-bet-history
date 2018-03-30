@@ -2,6 +2,7 @@ library(rvest)
 library(stringr)
 library(tidyverse)
 
+# https://www.marathonbet.com/en/myaccount/myaccount.htm
 "html/marathonbet/2018.03" %>% 
 	list.files(
 		pattern = ".+\\.html$",
@@ -30,7 +31,39 @@ library(tidyverse)
 	#View() %>% 
 	write_csv("csv/marathonbet/2018.03.csv")
 
-"csv/marathonbet/2018.03.csv" %>% 
+# https://1xbet.com/en/office/history/
+"html/1xbet/2018.03.html" %>% 
+	read_html() %>% 
+	html_nodes("table") %>% 
+	lapply(
+		function(x) x %>% 
+			html_table(fill = TRUE) %>% 
+			.[c(1, 4, 7), -1] %>% 
+			gather(var, val) %>% 
+			.[c(1:2, 5:6, 9, 11:12), 2] %>% 
+			t() %>% 
+			as_tibble() %>% 
+			transmute(
+				ts = str_match(V1, "(\\d{2}\\.\\d{2}\\.\\d{4}) \\| (\\d{2}:\\d{2})") %>% 
+					.[2:3] %>% 
+					paste(collapse = " ") %>% 
+					as.POSIXct(format = "%d.%m.%Y %H:%M") %>% 
+					format("%Y-%m-%d %H:%M"),
+				rikishi1 = str_match(V2, "^.+[a-z]([A-Z][a-z]+)")[, 2],
+				rikishi2 = str_match(V2, "^.+[a-z][A-Z][a-z]+ - ([A-Z][a-z]+)")[, 2],
+				outcome = V3,
+				stake = as.numeric(str_extract(V4, "\\d+\\.?\\d*")),
+				odds = as.numeric(V5),
+				status = V6,
+				return = as.numeric(V7)
+			)
+	) %>% 
+	do.call(rbind, .) %>% 
+	replace_na(replace = list(return = 0)) %>% 
+	#View() %>% 
+	write_csv("csv/1xbet/2018.03.csv")
+
+balance <- function(fn) fn %>% 
 	read_csv() %>% 
 	group_by(status) %>% 
 	summarise(
@@ -44,4 +77,13 @@ library(tidyverse)
 			status = "Total",
 			t(colSums(.[, -1]))
 		)
+	)
+
+c(
+	"csv/marathonbet/2018.03.csv",
+	"csv/1xbet/2018.03.csv"
+) %>% 
+	sapply(
+		balance,
+		simplify = FALSE
 	)

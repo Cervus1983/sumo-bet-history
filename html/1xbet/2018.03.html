@@ -1,0 +1,3941 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        html {
+            height : 100%;
+            width : 100%;
+            min-width : 1250px;
+        }
+
+        body {
+            font-family : Arial, Helvetica, sans-serif;
+            font-size : 12px;
+            color : #333;
+            height : 100%;
+        }
+        #dvH {
+            border-bottom:1px dotted #CCC;
+        }
+        .cupHis {
+            border: 1px solid #DDD;
+            background: #FAFAFA;
+            padding: 5px;
+            font-size: 11px;
+        }
+
+        .cupHis + .cupHis {
+            margin-top: 20px;
+        }
+
+        .cupHisZ {
+            background:#FFD400;
+            padding:5px;
+            font-size:12px;
+            margin:0 5px;
+        }
+
+        .cupHisNew{
+            border:1px solid #dddddd;
+            background:#fafafa;
+            margin:5px 0;
+            padding:5px;
+            position:relative;
+            font-family: Helvetica, sans-serif !important;
+            font-size: 12px;
+            color: #333;
+        }
+        .cupHisNew:hover{
+            background:#EDEDED;
+        }
+        .cupHisNew .time, .cupHisNew .hisName, .cupHisNew .hisCof{
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .cupHisNew .time{
+            border-right: 1px dotted #DDDDDD;
+            color: #818181;
+            height: 30px;
+            width: 143px;
+        }
+        .cupHisNew .time b{
+            color:#000;
+            font-size:10px;
+            display:block;
+        }
+        .cupHisNew .hisName{
+            padding: 0 10px 0 5px;
+            position: relative;
+            width: 650px;
+        }
+        .cupHisNew.express .hisName{
+            height: 30px;
+        }
+        .hisName .express_name {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            border: 1px solid transparent;
+            border-radius:3px;
+            height: 42px;
+            margin: -10px 0 0 -15px;
+            overflow: hidden;
+            padding: 8px 50px 8px 15px;
+            position: absolute;
+            max-width:535px;
+        }
+        .hisName .express_name:after {
+            color: #CD6A04;
+            content: "";
+            position: absolute;
+            right: 3px;
+            top: 18px;
+            padding: 5px;
+        }
+        .hisName .express_name:hover:after{
+            right: -32px;
+            -moz-opacity: 0.00;
+            opacity: 0.00;
+            -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=0);
+        }
+        .hisName .express_name:hover{
+            height:auto;
+            border-color:#ccc;
+            box-shadow: 0 3px 5px -4px #000000;
+            padding: 8px 15px;
+            overflow: visible;
+            z-index: 10;
+
+            background-image: -webkit-gradient(
+                linear,
+                left top,
+                left bottom,
+                color-stop(0.76, #FAFAFA),
+                color-stop(1, #F0F0F0)
+            );
+            background-image: -o-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: -moz-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: -webkit-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: -ms-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: linear-gradient(to bottom, #FAFAFA 76%, #F0F0F0 100%);
+            -pie-background: linear-gradient(top, #FAFAFA 76%, #F0F0F0 100%);
+            behavior: url('http:/xbet/img/PIE.htc');
+        }
+        .hisName .express_name b {
+            border-bottom: 1px dotted #DDDDDD;
+            display: block;
+            margin: 0 0 2px;
+            padding: 0 25px 2px 0;
+            color:#4c4c4c;
+            position:relative;
+        }
+        .hisName .express_name b:after{
+            position:absolute;
+            content:'';
+            width:9px;
+            height:9px;
+            top:11px;
+            right:0px;
+            background:url("http:/xbet/img/his-arr.png");
+            background-repeat:no-repeat;
+            background-position:100px 100px;
+            display:none;
+        }
+        .hisName .express_name:hover b:after{
+            display:block;
+        }
+        .hisName .express_name b.win:after{
+            background-position:0 -158px;
+        }
+        .hisName .express_name b.lose:after{
+            background-position:0 -181px;
+        }
+        .hisName .express_name b:nth-child(odd){
+            color:#000;
+        }
+        .hisName .express_name b:last-child{
+            border-width:0;
+            margin:0;
+            padding:0;
+        }
+        .hisName .express_icon {
+            background: none repeat scroll 0 0 #FF9C00;
+            color: #FFFFFF;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            margin: -8px 0 0;
+            padding: 0 5px 1px;
+            position: absolute;
+            right: 45px;
+            text-align: right;
+            top: 50%;
+        }
+        .hisName .express_icon b {
+            color: #FF9C00;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 16px;
+            margin: -2px 0 0 8px;
+            position: absolute;
+            white-space: nowrap;
+        }
+
+        .cupHisNew .hisCof{
+            background: none repeat scroll 0 0 #ddd;
+            color: #000000;
+            height: 40px;
+            line-height: 40px;
+            margin: -15px 0;
+            padding: 0;
+            text-align: center;
+            width: 45px;
+        }
+        .cupHisNew .hisCof.win{
+            background:#5BC61F;
+            color:#fff;
+        }
+
+        /* office/history/ start */
+
+        .betHistoryTypeMenu.active-tab{
+            font-weight:bold;
+        }
+
+        .tableFilter tr .checkbox_fields{
+            vertical-align:middle;
+            margin-top:-1px;
+        }
+
+        .hisFullProp .table_prop{
+            width:100%;
+            border-spacing:0;
+        }
+        .hisFullProp .table_prop .header_line{
+            background:#bee3f3;
+            color:#333;
+        }
+        .hisFullProp .table_prop .header_line th{
+            border-top: 2px solid #80aabb;
+            border-bottom: 2px solid #80aabb;
+        }
+
+        .cupHis{
+            font-size: 12px;
+            line-height: 18px;
+        }
+        .cupHis .header_line{
+            background: #bee3f3;
+            color: #333; font-weight: bold;
+        }
+        .cupHis .header_line td{
+            border-top: 2px solid #80aabb;
+            border-bottom: 2px solid #80aabb;
+        }
+
+        th .ri, td.ri{
+            text-align: right;
+        }
+        th .le, td.le{
+            text-align: left;
+        }
+        th .ce, td.ce{
+            text-align: center;
+        }
+
+        .head-title{
+            font-size:16px;
+            padding:10px 0 0 0;
+            margin:0 0 10px 0;
+            border-bottom:1px solid #4E4E4E;
+            width:300px;
+        }
+        .tabsTriger{
+            margin:20px 0;
+            border-bottom:2px solid #cccccc;
+            font-size:14px;
+        }
+        .preImage{
+            height:70px;
+            padding-top:50px;
+            text-align:center;
+        }
+
+        #contentHistory .tableResult{
+            border-collapse: collapse;
+        }
+        #contentHistory .tableResult tr{
+            border-left: 1px solid #d3d8dd;
+            border-right: 1px solid #d3d8dd;
+        }
+        #contentHistory .tableResult tr.lastLine{
+            text-align: center;
+        }
+        #contentHistory .tableResult tr.lastLine > td{
+            display: none;
+        }
+        #contentHistory .tableResult tr.winLine{
+            background:rgb(179, 245, 177);
+        }
+        #contentHistory .tableResult th{
+            background: #3c96d9;
+            padding: 10px 5px;
+            color: #fff;
+            font-size: 13px;
+            border-bottom: 1px solid #d3d8dd;
+            text-align: center;
+        }
+        #contentHistory .tableResult td{
+            border-bottom: 1px solid #d3d8dd;
+            padding: 5px;
+            text-align: center;
+        }
+        #contentHistory .tableResult #contentHistory .tableResult td{
+            background: none repeat scroll 0 0 #F9F9F9;
+        }
+        #contentHistory .tableResult .journalResult{
+            width: 1000px; margin: 0px auto;
+        }
+        #contentHistory .tableResult .showInfoLink{
+            display: block;
+            background: url("http:/xbet/img/his-arr.png");
+            background-repeat: no-repeat;
+            background-position: 8px 9px;
+            width: 33px;
+            height: 25px;
+            margin: 0 auto;
+            font-weight: bold;
+        }
+        #contentHistory .tableResult .showInfoLink:hover{
+            background-position: -54px 9px;
+        }
+
+        #contentHistory .tableResult .showInfoLink.active{
+            background-position: 8px -50px;
+        }
+        #contentHistory .tableResult .showInfoLink.active:hover{
+
+            background-position: -54px -50px;
+        }
+
+
+
+        #contentHistory .text-message,
+        #contentHistory .text-message-error{
+            text-align: center;
+            font-weight: bold;padding: 10px 0;
+        }
+        #contentHistory .text-message-error{
+            color:red;
+        }
+
+        /* office/history/ end */
+        .cupHisNew{
+            border:1px solid #dddddd;
+            background:#fafafa;
+            margin:5px 0;
+            padding:5px;
+            position:relative;
+        }
+        .cupHisNew:hover{
+            background:#EDEDED;
+        }
+        .cupHisNew .time, .cupHisNew .hisName, .cupHisNew .hisCof{
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .cupHisNew .time{
+            border-right: 1px dotted #DDDDDD;
+            color: #818181;
+            height: 30px;
+            width: 143px;
+        }
+        .cupHisNew .time b{
+            color:#000;
+            font-size:10px;
+            display:block;
+        }
+        .cupHisNew .hisName{
+            padding: 0 10px 0 5px;
+            position: relative;
+            width: 650px;
+        }
+        .cupHisNew.express .hisName{
+            height: 30px;
+        }
+        .hisName .express_name {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            border: 1px solid transparent;
+            border-radius:3px;
+            height: 42px;
+            margin: -10px 0 0 -15px;
+            overflow: hidden;
+            padding: 8px 50px 8px 15px;
+            position: absolute;
+            max-width:535px;
+        }
+        .hisName .express_name:after {
+            color: #CD6A04;
+            content: "";
+            position: absolute;
+            right: 3px;
+            top: 18px;
+            padding: 5px;
+        }
+        .hisName .express_name:hover:after{
+            right: -32px;
+            -moz-opacity: 0.00;
+            opacity: 0.00;
+            -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=0);
+        }
+        .hisName .express_name:hover{
+            height:auto;
+            border-color:#ccc;
+            box-shadow: 0 3px 5px -4px #000000;
+            padding: 8px 15px;
+            overflow: visible;
+            z-index: 10;
+
+            background-image: -webkit-gradient(
+                linear,
+                left top,
+                left bottom,
+                color-stop(0.76, #FAFAFA),
+                color-stop(1, #F0F0F0)
+            );
+            background-image: -o-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: -moz-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: -webkit-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: -ms-linear-gradient(bottom, #FAFAFA 76%, #F0F0F0 100%);
+            background-image: linear-gradient(to bottom, #FAFAFA 76%, #F0F0F0 100%);
+            -pie-background: linear-gradient(top, #FAFAFA 76%, #F0F0F0 100%);
+            behavior: url('http:/xbet/img/PIE.htc');
+        }
+        .hisName .express_name b {
+            border-bottom: 1px dotted #DDDDDD;
+            display: block;
+            margin: 0 0 2px;
+            padding: 0 25px 2px 0;
+            color:#4c4c4c;
+            position:relative;
+        }
+        .hisName .express_name b:after{
+            position:absolute;
+            content:'';
+            width:9px;
+            height:9px;
+            top:11px;
+            right:0px;
+            background:url("http:/xbet/img/his-arr.png");
+            background-repeat:no-repeat;
+            background-position:100px 100px;
+            display:none;
+        }
+        .hisName .express_name:hover b:after{
+            display:block;
+        }
+        .hisName .express_name b.win:after{
+            background-position:0 -158px;
+        }
+        .hisName .express_name b.lose:after{
+            background-position:0 -181px;
+        }
+        .hisName .express_name b:nth-child(odd){
+            color:#000;
+        }
+        .hisName .express_name b:last-child{
+            border-width:0;
+            margin:0;
+            padding:0;
+        }
+        .hisName .express_icon {
+            background: none repeat scroll 0 0 #FF9C00;
+            color: #FFFFFF;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            margin: -8px 0 0;
+            padding: 0 5px 1px;
+            position: absolute;
+            right: 45px;
+            text-align: right;
+            top: 50%;
+        }
+
+        .hisName .express_icon b {
+            color: #FF9C00;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 16px;
+            margin: -2px 0 0 8px;
+            position: absolute;
+            white-space: nowrap;
+        }
+
+        .cupHisNew .hisCof{
+            background: none repeat scroll 0 0 #ddd;
+            color: #000000;
+            height: 40px;
+            line-height: 40px;
+            margin: -15px 0;
+            padding: 0;
+            text-align: center;
+            width: 60px;
+        }
+        .cupHisNew .hisCof.win{
+            background:#5BC61F;
+            color:#fff;
+        }
+        input[name="hisChekHide"]{
+            display:none;
+        }
+        input[name="hisChekHide"] + label ~ .hisFullProp{
+            height:0;
+            border-color: #DDDDDD;
+            border-style:solid;
+            border-width:0px;
+            overflow:hidden;
+            background: none repeat scroll 0 0 #E7E7E7;
+            margin: 5px -6px -6px;
+            font-size:11px;
+        }
+        input[name="hisChekHide"] + label ~ .hisFullProp > div{
+            margin:5px 0;
+        }
+        input[name="hisChekHide"]:checked + label ~ .hisFullProp{
+            height: auto;
+            border-width: 1px;
+            border-color: #4a95c9 ;
+        }
+        input[name="hisChekHide"] + label{
+            position:absolute;
+            width:30px;
+            height:41px;
+            display:block;
+            top:-1px;
+            right:-1px;
+            overflow: hidden;
+
+            background-image: -webkit-gradient(
+                linear,
+                left top,
+                left bottom,
+                color-stop(0, #FFFFFF),
+                color-stop(1, #E8E8E8)
+            );
+            background-image: -o-linear-gradient(bottom, #FFFFFF 0%, #E8E8E8 100%);
+            background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, #E8E8E8 100%);
+            background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #E8E8E8 100%);
+            background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, #E8E8E8 100%);
+            background-image: linear-gradient(to bottom, #FFFFFF 0%, #E8E8E8 100%);
+            -pie-background: linear-gradient(top, #FFFFFF 0%, #E8E8E8 100%);
+            behavior: url('http:/xbet/img/PIE.htc');
+        }
+        input[name="hisChekHide"]:checked + label{
+            height:42px;
+        }
+        input[name="hisChekHide"] + label:before {
+            content:'';
+            width:28px;
+            height:39px;
+            position:absolute;
+            top:0;
+            left:0;
+            text-align:center;
+            border:1px solid #ddd;
+            background:url("http:/xbet/img/his-arr.png");
+            background-repeat:no-repeat;
+            background-position:6px 16px;
+        }
+        input[name="hisChekHide"]:checked + label:before {
+            background-position:6px -42px;
+            border-color: #4a95c9 #4a95c9 #E7E7E7;
+            height: 42px;
+        }
+        input[name="hisChekHide"] + label:hover:before, .hisName:hover + .hisCof + input + label:before{
+            background-position:-56px 16px;
+            cursor:pointer;
+        }
+        input[name="hisChekHide"]:checked + label:hover:before, .hisName:hover + .hisCof + input:checked + label:before{
+            background-position:-56px -42px;
+        }
+        input[name="hisChekHide"] + label:hover, .hisName:hover + .hisCof + input + label{
+            background-image: -webkit-gradient(
+                linear,
+                left top,
+                left bottom,
+                color-stop(0, #F0F0F0),
+                color-stop(1, #CCCCCC)
+            );
+            background-image: -o-linear-gradient(bottom, #F0F0F0 0%, #CCCCCC 100%);
+            background-image: -moz-linear-gradient(bottom, #F0F0F0 0%, #CCCCCC 100%);
+            background-image: -webkit-linear-gradient(bottom, #F0F0F0 0%, #CCCCCC 100%);
+            background-image: -ms-linear-gradient(bottom, #F0F0F0 0%, #CCCCCC 100%);
+            background-image: linear-gradient(to bottom, #F0F0F0 0%, #CCCCCC 100%);
+            -pie-background: linear-gradient(top, #F0F0F0 0%, #CCCCCC 100%);
+            behavior: url('http:/xbet/img/PIE.htc');
+        }
+        .hisFullProp th:first-child, .hisFullProp td:first-child {
+            padding-left: 5px;
+        }
+        .hisFullProp th:last-child, .hisFullProp td:last-child {
+            padding-right: 5px;
+        }
+
+        /* from file: /images/common.css */
+        .hisFullProp .table_prop .header_line th {
+            border-top : 2px solid #80aabb;
+            border-bottom : 2px solid #80aabb;
+        }
+
+        .hFP_block
+        {
+            background-color: #fff;
+            border: 2px solid #4a95c9;
+            margin: 30px 10px 10px !important;
+            position: relative;
+        }
+        .hFP_blockName
+        {
+            color: #fff;
+            height: 20px;
+            left: -2px;
+            line-height: 20px;
+            position: absolute;
+            right: -2px;
+            top: -20px;
+            white-space: nowrap;
+        }
+        .hFP_blockName>.name
+        {
+            background-color: #4a95c9;
+            float: left;
+            font-weight: 700;
+            min-width: 100px;
+            padding: 0 10px;
+            position: absolute;
+        }
+        .hFP_blockName>.name:before
+        {
+            border-color: transparent transparent #4a95c9;
+            border-style: solid;
+            border-width: 0 15px 20px 0;
+            content: "";
+            display: block;
+            height: 0;
+            position: absolute;
+            right: -15px;
+            top: 0;
+            width: 0;
+        }
+        .cupHisNew .hisName {
+            width : -webkit-calc(100% - 250px);
+        }
+    </style>
+</head>
+<body>
+<div class="cupHisZ">
+    <span><b>Bets for: </b>period from 1 march 2018 to 26 march 2018</span>
+    <span><b>Number of bets:</b>54</span>
+    <span><b>Total winnings:</b>1055.48 SEK</span>
+    <span><b>Amount of unsettled bets:</b>0 SEK</span>
+</div>
+<a href="/itsatrap?" class="admiral-ackbar"></a><style>.admiral-ackbar { display: none; }</style>
+<div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2950012367</b><time>24.03.2018 | 15:46</time>
+    </div>
+    <label for="hisChekHide-2950012367" class="hisName">
+                    <b>Haru Basho. Osaka<br>Aoiyama - Okinoumi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.9    </div>
+    <input id="hisChekHide-2950012367" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2950012367"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2950012367 from 24.03.2018 | 15:46</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Aoiyama - Okinoumi</b></span>
+                        <b>25.03.2018 | 09:30</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.904</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:25.03.2018 (10:40)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.9</td>
+        <td class="ce" style="color: #000000;">
+            <b>38.08</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2948887699</b><time>24.03.2018 | 12:38</time>
+    </div>
+    <label for="hisChekHide-2948887699" class="hisName">
+                    <b>Haru Basho. Osaka<br>Shodai - Daieisho</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.77    </div>
+    <input id="hisChekHide-2948887699" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2948887699"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2948887699 from 24.03.2018 | 12:38</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Shodai - Daieisho</b></span>
+                        <b>25.03.2018 | 09:30</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.77</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:25.03.2018 (10:42)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.77</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2942558389</b><time>23.03.2018 | 14:50</time>
+    </div>
+    <label for="hisChekHide-2942558389" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Goeido</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.41    </div>
+    <input id="hisChekHide-2942558389" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2942558389"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2942558389 from 23.03.2018 | 14:50</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Kakuryu - Goeido</b></span>
+                        <b>24.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.41</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:24.03.2018 (12:20)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.41</td>
+        <td class="ce" style="color: #000000;">
+            <b>28.2</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2942520331</b><time>23.03.2018 | 14:44</time>
+    </div>
+    <label for="hisChekHide-2942520331" class="hisName">
+                    <b>Haru Basho. Osaka<br>Tochiozan - Hidenoumi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.87    </div>
+    <input id="hisChekHide-2942520331" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2942520331"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2942520331 from 23.03.2018 | 14:44</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Tochiozan - Hidenoumi</b></span>
+                        <b>24.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.87</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:24.03.2018 (11:21)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.87</td>
+        <td class="ce" style="color: #000000;">
+            <b>37.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2942518231</b><time>23.03.2018 | 14:44</time>
+    </div>
+    <label for="hisChekHide-2942518231" class="hisName">
+                    <b>Haru Basho. Osaka<br>Okinoumi - Myogiryu</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.72    </div>
+    <input id="hisChekHide-2942518231" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2942518231"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2942518231 from 23.03.2018 | 14:44</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Okinoumi - Myogiryu</b></span>
+                        <b>24.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.72</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:24.03.2018 (12:21)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.72</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2942511501</b><time>23.03.2018 | 14:42</time>
+    </div>
+    <label for="hisChekHide-2942511501" class="hisName">
+                    <b>Haru Basho. Osaka<br>Arawashi - Ryuden</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.86    </div>
+    <input id="hisChekHide-2942511501" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2942511501"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2942511501 from 23.03.2018 | 14:42</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Arawashi - Ryuden</b></span>
+                        <b>24.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.86</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:24.03.2018 (11:21)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.86</td>
+        <td class="ce" style="color: #000000;">
+            <b>37.2</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2938234769</b><time>22.03.2018 | 20:01</time>
+    </div>
+    <label for="hisChekHide-2938234769" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Hokutofuji</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.74    </div>
+    <input id="hisChekHide-2938234769" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2938234769"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2938234769 from 22.03.2018 | 20:01</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Mitakeumi - Hokutofuji</b></span>
+                        <b>23.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.744</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:23.03.2018 (11:51)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.74</td>
+        <td class="ce" style="color: #000000;">
+            <b>34.88</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2938230979</b><time>22.03.2018 | 20:00</time>
+    </div>
+    <label for="hisChekHide-2938230979" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Goeido</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.7    </div>
+    <input id="hisChekHide-2938230979" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2938230979"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2938230979 from 22.03.2018 | 20:00</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Goeido</b></span>
+                        <b>23.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.696</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:23.03.2018 (11:56)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.7</td>
+        <td class="ce" style="color: #000000;">
+            <b>33.92</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2938229881</b><time>22.03.2018 | 20:00</time>
+    </div>
+    <label for="hisChekHide-2938229881" class="hisName">
+                    <b>Haru Basho. Osaka<br>Daishomaru - Chiyoshoma</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.94    </div>
+    <input id="hisChekHide-2938229881" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2938229881"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2938229881 from 22.03.2018 | 20:00</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Daishomaru - Chiyoshoma</b></span>
+                        <b>23.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.944</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:23.03.2018 (11:16)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.94</td>
+        <td class="ce" style="color: #000000;">
+            <b>38.88</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2938228751</b><time>22.03.2018 | 20:00</time>
+    </div>
+    <label for="hisChekHide-2938228751" class="hisName">
+                    <b>Haru Basho. Osaka<br>Tamawashi - Yoshikaze</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.47    </div>
+    <input id="hisChekHide-2938228751" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2938228751"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2938228751 from 22.03.2018 | 20:00</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Tamawashi - Yoshikaze</b></span>
+                        <b>23.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.47</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:23.03.2018 (11:35)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.47</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2938227053</b><time>22.03.2018 | 19:59</time>
+    </div>
+    <label for="hisChekHide-2938227053" class="hisName">
+                    <b>Haru Basho. Osaka<br>Aoiyama - Yutakayama</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.9    </div>
+    <input id="hisChekHide-2938227053" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2938227053"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2938227053 from 22.03.2018 | 19:59</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Aoiyama - Yutakayama</b></span>
+                        <b>23.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.896</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:23.03.2018 (11:16)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.9</td>
+        <td class="ce" style="color: #000000;">
+            <b>37.92</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2931851809</b><time>21.03.2018 | 18:51</time>
+    </div>
+    <label for="hisChekHide-2931851809" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Tochinoshin</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.31    </div>
+    <input id="hisChekHide-2931851809" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2931851809"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2931851809 from 21.03.2018 | 18:51</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Kakuryu - Tochinoshin</b></span>
+                        <b>22.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.305</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:22.03.2018 (12:17)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.31</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2929809395</b><time>21.03.2018 | 12:58</time>
+    </div>
+    <label for="hisChekHide-2929809395" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Tochinoshin</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.24    </div>
+    <input id="hisChekHide-2929809395" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2929809395"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2929809395 from 21.03.2018 | 12:58</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Kakuryu - Tochinoshin</b></span>
+                        <b>22.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.24</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:22.03.2018 (12:17)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.24</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2929807449</b><time>21.03.2018 | 12:57</time>
+    </div>
+    <label for="hisChekHide-2929807449" class="hisName">
+                    <b>Haru Basho. Osaka<br>Goeido - Ichinojō</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.83    </div>
+    <input id="hisChekHide-2929807449" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2929807449"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2929807449 from 21.03.2018 | 12:57</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Goeido - Ichinojō</b></span>
+                        <b>22.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.83</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:22.03.2018 (12:17)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.83</td>
+        <td class="ce" style="color: #000000;">
+            <b>36.6</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2929638919</b><time>21.03.2018 | 12:23</time>
+    </div>
+    <label for="hisChekHide-2929638919" class="hisName">
+                    <b>Haru Basho. Osaka<br>Goeido - Ichinojō</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.77    </div>
+    <input id="hisChekHide-2929638919" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2929638919"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2929638919 from 21.03.2018 | 12:23</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Goeido - Ichinojō</b></span>
+                        <b>22.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.77</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:22.03.2018 (12:17)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.77</td>
+        <td class="ce" style="color: #000000;">
+            <b>35.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2929625191</b><time>21.03.2018 | 12:20</time>
+    </div>
+    <label for="hisChekHide-2929625191" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Shodai</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.62    </div>
+    <input id="hisChekHide-2929625191" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2929625191"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2929625191 from 21.03.2018 | 12:20</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Mitakeumi - Shodai</b></span>
+                        <b>22.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.62</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:22.03.2018 (11:39)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.62</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2929618929</b><time>21.03.2018 | 12:19</time>
+    </div>
+    <label for="hisChekHide-2929618929" class="hisName">
+                    <b>Haru Basho. Osaka<br>Tamawashi - Takarafuji</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.45    </div>
+    <input id="hisChekHide-2929618929" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2929618929"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2929618929 from 21.03.2018 | 12:19</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Tamawashi - Takarafuji</b></span>
+                        <b>22.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.45</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:22.03.2018 (11:39)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.45</td>
+        <td class="ce" style="color: #000000;">
+            <b>29</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2929616379</b><time>21.03.2018 | 12:18</time>
+    </div>
+    <label for="hisChekHide-2929616379" class="hisName">
+                    <b>Haru Basho. Osaka<br>Chiyonokuni - Daishomaru</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.84    </div>
+    <input id="hisChekHide-2929616379" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2929616379"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2929616379 from 21.03.2018 | 12:18</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Chiyonokuni - Daishomaru</b></span>
+                        <b>22.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.84</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:22.03.2018 (11:09)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.84</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2927575493</b><time>20.03.2018 | 23:42</time>
+    </div>
+    <label for="hisChekHide-2927575493" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Chiyomaru</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.59    </div>
+    <input id="hisChekHide-2927575493" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2927575493"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2927575493 from 20.03.2018 | 23:42</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Mitakeumi - Chiyomaru</b></span>
+                        <b>21.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.585</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:21.03.2018 (11:46)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.59</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2924233093</b><time>20.03.2018 | 14:29</time>
+    </div>
+    <label for="hisChekHide-2924233093" class="hisName">
+                    <b>Haru Basho. Osaka<br>Daishomaru - Hidenoumi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.62    </div>
+    <input id="hisChekHide-2924233093" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2924233093"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2924233093 from 20.03.2018 | 14:29</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Daishomaru - Hidenoumi</b></span>
+                        <b>21.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.62</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:21.03.2018 (11:19)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.62</td>
+        <td class="ce" style="color: #000000;">
+            <b>32.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2924125785</b><time>20.03.2018 | 14:07</time>
+    </div>
+    <label for="hisChekHide-2924125785" class="hisName">
+                    <b>Haru Basho. Osaka<br>Goeido - Shodai</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.66    </div>
+    <input id="hisChekHide-2924125785" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2924125785"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2924125785 from 20.03.2018 | 14:07</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Goeido - Shodai</b></span>
+                        <b>21.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.66</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:21.03.2018 (11:54)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.66</td>
+        <td class="ce" style="color: #000000;">
+            <b>33.2</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2924124685</b><time>20.03.2018 | 14:07</time>
+    </div>
+    <label for="hisChekHide-2924124685" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Chiyomaru</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.57    </div>
+    <input id="hisChekHide-2924124685" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2924124685"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2924124685 from 20.03.2018 | 14:07</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Mitakeumi - Chiyomaru</b></span>
+                        <b>21.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.57</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:21.03.2018 (11:46)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.57</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2919539131</b><time>19.03.2018 | 17:14</time>
+    </div>
+    <label for="hisChekHide-2919539131" class="hisName">
+                    <b>Haru Basho. Osaka<br>Hokutofuji - Takakeisho</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.9    </div>
+    <input id="hisChekHide-2919539131" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2919539131"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2919539131 from 19.03.2018 | 17:14</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Hokutofuji - Takakeisho</b></span>
+                        <b>20.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.9</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:20.03.2018 (12:30)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.9</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2918483379</b><time>19.03.2018 | 13:49</time>
+    </div>
+    <label for="hisChekHide-2918483379" class="hisName">
+                    <b>Haru Basho. Osaka<br>Endo - Arawashi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.46    </div>
+    <input id="hisChekHide-2918483379" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2918483379"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2918483379 from 19.03.2018 | 13:49</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Endo - Arawashi</b></span>
+                        <b>20.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.46</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:20.03.2018 (12:30)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.46</td>
+        <td class="ce" style="color: #000000;">
+            <b>29.2</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2918402857</b><time>19.03.2018 | 13:32</time>
+    </div>
+    <label for="hisChekHide-2918402857" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Chiyomaru</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.24    </div>
+    <input id="hisChekHide-2918402857" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2918402857"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2918402857 from 19.03.2018 | 13:32</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Kakuryu - Chiyomaru</b></span>
+                        <b>20.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.24</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:20.03.2018 (12:13)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.24</td>
+        <td class="ce" style="color: #000000;">
+            <b>24.8</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2918400749</b><time>19.03.2018 | 13:31</time>
+    </div>
+    <label for="hisChekHide-2918400749" class="hisName">
+                    <b>Haru Basho. Osaka<br>Ichinojō - Kaisei</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.62    </div>
+    <input id="hisChekHide-2918400749" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2918400749"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2918400749 from 19.03.2018 | 13:31</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Ichinojō - Kaisei</b></span>
+                        <b>20.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.62</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:20.03.2018 (12:30)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.62</td>
+        <td class="ce" style="color: #000000;">
+            <b>32.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2918397627</b><time>19.03.2018 | 13:31</time>
+    </div>
+    <label for="hisChekHide-2918397627" class="hisName">
+                    <b>Haru Basho. Osaka<br>Tamawashi - Chiyotairyu</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.61    </div>
+    <input id="hisChekHide-2918397627" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2918397627"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2918397627 from 19.03.2018 | 13:31</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Tamawashi - Chiyotairyu</b></span>
+                        <b>20.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.61</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:20.03.2018 (12:15)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.61</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2918394415</b><time>19.03.2018 | 13:30</time>
+    </div>
+    <label for="hisChekHide-2918394415" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Shohozan</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.7    </div>
+    <input id="hisChekHide-2918394415" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2918394415"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2918394415 from 19.03.2018 | 13:30</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Mitakeumi - Shohozan</b></span>
+                        <b>20.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.7</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:20.03.2018 (12:15)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.7</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2918391781</b><time>19.03.2018 | 13:30</time>
+    </div>
+    <label for="hisChekHide-2918391781" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Shodai</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.38    </div>
+    <input id="hisChekHide-2918391781" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2918391781"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2918391781 from 19.03.2018 | 13:30</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Shodai</b></span>
+                        <b>20.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.375</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:20.03.2018 (12:15)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.38</td>
+        <td class="ce" style="color: #000000;">
+            <b>27.5</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2916694867</b><time>19.03.2018 | 01:22</time>
+    </div>
+    <label for="hisChekHide-2916694867" class="hisName">
+                    <b>Haru Basho. Osaka<br>Aminishiki - Hidenoumi</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.85    </div>
+    <input id="hisChekHide-2916694867" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2916694867"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2916694867 from 19.03.2018 | 01:22</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Aminishiki - Hidenoumi</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.85</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:19.03.2018 (11:15)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.85</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2916693601</b><time>19.03.2018 | 01:21</time>
+    </div>
+    <label for="hisChekHide-2916693601" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Kotoshogiku</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.5    </div>
+    <input id="hisChekHide-2916693601" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2916693601"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2916693601 from 19.03.2018 | 01:21</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Mitakeumi - Kotoshogiku</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.5</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:19.03.2018 (11:54)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.5</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2916181101</b><time>18.03.2018 | 23:22</time>
+    </div>
+    <label for="hisChekHide-2916181101" class="hisName">
+                    <b>Haru Basho. Osaka<br>Chiyomaru - Goeido</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.4    </div>
+    <input id="hisChekHide-2916181101" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2916181101"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2916181101 from 18.03.2018 | 23:22</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Chiyomaru - Goeido</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.4</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:19.03.2018 (11:54)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.4</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2916112229</b><time>18.03.2018 | 23:09</time>
+    </div>
+    <label for="hisChekHide-2916112229" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Shodai</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.28    </div>
+    <input id="hisChekHide-2916112229" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2916112229"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2916112229 from 18.03.2018 | 23:09</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Kakuryu - Shodai</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.275</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:19.03.2018 (11:58)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.28</td>
+        <td class="ce" style="color: #000000;">
+            <b>25.5</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2911911137</b><time>18.03.2018 | 14:08</time>
+    </div>
+    <label for="hisChekHide-2911911137" class="hisName">
+                    <b>Haru Basho. Osaka<br>Endo - Tamawashi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.75    </div>
+    <input id="hisChekHide-2911911137" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2911911137"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2911911137 from 18.03.2018 | 14:08</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Endo - Tamawashi</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.75</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:19.03.2018 (11:27)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.75</td>
+        <td class="ce" style="color: #000000;">
+            <b>35</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2911808225</b><time>18.03.2018 | 13:53</time>
+    </div>
+    <label for="hisChekHide-2911808225" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Chiyotairyu</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.47    </div>
+    <input id="hisChekHide-2911808225" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2911808225"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2911808225 from 18.03.2018 | 13:53</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Chiyotairyu</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.47</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:19.03.2018 (11:53)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.47</td>
+        <td class="ce" style="color: #000000;">
+            <b>29.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2911464329</b><time>18.03.2018 | 13:00</time>
+    </div>
+    <label for="hisChekHide-2911464329" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Chiyotairyu</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.43    </div>
+    <input id="hisChekHide-2911464329" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2911464329"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2911464329 from 18.03.2018 | 13:00</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Chiyotairyu</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.43</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:19.03.2018 (11:53)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.43</td>
+        <td class="ce" style="color: #000000;">
+            <b>28.6</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2911463253</b><time>18.03.2018 | 13:00</time>
+    </div>
+    <label for="hisChekHide-2911463253" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Kotoshogiku</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.45    </div>
+    <input id="hisChekHide-2911463253" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2911463253"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2911463253 from 18.03.2018 | 13:00</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Mitakeumi - Kotoshogiku</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.45</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:19.03.2018 (11:54)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.45</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2911461319</b><time>18.03.2018 | 13:00</time>
+    </div>
+    <label for="hisChekHide-2911461319" class="hisName">
+                    <b>Haru Basho. Osaka<br>Chiyomaru - Goeido</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.38    </div>
+    <input id="hisChekHide-2911461319" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2911461319"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2911461319 from 18.03.2018 | 13:00</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Chiyomaru - Goeido</b></span>
+                        <b>19.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.375</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:19.03.2018 (11:54)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.38</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2905673551</b><time>17.03.2018 | 17:06</time>
+    </div>
+    <label for="hisChekHide-2905673551" class="hisName">
+                    <b>Haru Basho. Osaka<br>Sokokurai - Asanoyama</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.64    </div>
+    <input id="hisChekHide-2905673551" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2905673551"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2905673551 from 17.03.2018 | 17:06</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Sokokurai - Asanoyama</b></span>
+                        <b>18.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.635</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:18.03.2018 (12:22)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.64</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2903695189</b><time>17.03.2018 | 12:52</time>
+    </div>
+    <label for="hisChekHide-2903695189" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Takakeisho</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.6    </div>
+    <input id="hisChekHide-2903695189" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2903695189"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2903695189 from 17.03.2018 | 12:52</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Takakeisho</b></span>
+                        <b>18.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.6</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:18.03.2018 (12:20)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.6</td>
+        <td class="ce" style="color: #000000;">
+            <b>32</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2903692977</b><time>17.03.2018 | 12:52</time>
+    </div>
+    <label for="hisChekHide-2903692977" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kotoshogiku - Goeido</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.49    </div>
+    <input id="hisChekHide-2903692977" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2903692977"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2903692977 from 17.03.2018 | 12:52</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Kotoshogiku - Goeido</b></span>
+                        <b>18.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.49</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:18.03.2018 (12:20)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.49</td>
+        <td class="ce" style="color: #000000;">
+            <b>29.8</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2903690509</b><time>17.03.2018 | 12:51</time>
+    </div>
+    <label for="hisChekHide-2903690509" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Shohozan</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.3    </div>
+    <input id="hisChekHide-2903690509" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2903690509"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2903690509 from 17.03.2018 | 12:51</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Kakuryu - Shohozan</b></span>
+                        <b>18.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.3</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:18.03.2018 (12:20)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.3</td>
+        <td class="ce" style="color: #000000;">
+            <b>26</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2899822269</b><time>16.03.2018 | 21:24</time>
+    </div>
+    <label for="hisChekHide-2899822269" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Shohozan</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.45    </div>
+    <input id="hisChekHide-2899822269" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2899822269"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2899822269 from 16.03.2018 | 21:24</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Shohozan</b></span>
+                        <b>17.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.45</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:17.03.2018 (12:03)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.45</td>
+        <td class="ce" style="color: #000000;">
+            <b>29</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2896312583</b><time>16.03.2018 | 12:21</time>
+    </div>
+    <label for="hisChekHide-2896312583" class="hisName">
+                    <b>Haru Basho. Osaka<br>Daishomaru - Sokokurai</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.62    </div>
+    <input id="hisChekHide-2896312583" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2896312583"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2896312583 from 16.03.2018 | 12:21</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Daishomaru - Sokokurai</b></span>
+                        <b>17.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.62</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:17.03.2018 (11:32)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.62</td>
+        <td class="ce" style="color: #000000;">
+            <b>32.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2893987091</b><time>15.03.2018 | 23:33</time>
+    </div>
+    <label for="hisChekHide-2893987091" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Takarafuji</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.27    </div>
+    <input id="hisChekHide-2893987091" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2893987091"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2893987091 from 15.03.2018 | 23:33</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Takarafuji</b></span>
+                        <b>16.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.27</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:16.03.2018 (11:55)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.27</td>
+        <td class="ce" style="color: #000000;">
+            <b>25.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2893985693</b><time>15.03.2018 | 23:33</time>
+    </div>
+    <label for="hisChekHide-2893985693" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Kotoshogiku</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.25    </div>
+    <input id="hisChekHide-2893985693" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2893985693"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2893985693 from 15.03.2018 | 23:33</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Kakuryu - Kotoshogiku</b></span>
+                        <b>16.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.25</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:16.03.2018 (12:03)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.25</td>
+        <td class="ce" style="color: #000000;">
+            <b>25</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2889493623</b><time>15.03.2018 | 12:43</time>
+    </div>
+    <label for="hisChekHide-2889493623" class="hisName">
+                    <b>Haru Basho. Osaka<br>Goeido - Shohozan</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.67    </div>
+    <input id="hisChekHide-2889493623" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2889493623"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2889493623 from 15.03.2018 | 12:43</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Goeido - Shohozan</b></span>
+                        <b>16.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.67</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:16.03.2018 (12:03)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.67</td>
+        <td class="ce" style="color: #000000;">
+            <b>33.4</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2883188391</b><time>14.03.2018 | 14:11</time>
+    </div>
+    <label for="hisChekHide-2883188391" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Tamawashi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.7    </div>
+    <input id="hisChekHide-2883188391" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2883188391"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2883188391 from 14.03.2018 | 14:11</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Mitakeumi - Tamawashi</b></span>
+                        <b>15.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.7</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:15.03.2018 (12:10)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.7</td>
+        <td class="ce" style="color: #000000;">
+            <b>34</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2883185721</b><time>14.03.2018 | 14:11</time>
+    </div>
+    <label for="hisChekHide-2883185721" class="hisName">
+                    <b>Haru Basho. Osaka<br>Takayasu - Kotoshogiku</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.51    </div>
+    <input id="hisChekHide-2883185721" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2883185721"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2883185721 from 14.03.2018 | 14:11</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Takayasu - Kotoshogiku</b></span>
+                        <b>15.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.51</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:15.03.2018 (12:10)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.51</td>
+        <td class="ce" style="color: #000000;">
+            <b>30.2</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2876164071</b><time>13.03.2018 | 12:45</time>
+    </div>
+    <label for="hisChekHide-2876164071" class="hisName">
+                    <b>Haru Basho. Osaka<br>Okinoumi - Chiyonokuni</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.82    </div>
+    <input id="hisChekHide-2876164071" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2876164071"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2876164071 from 13.03.2018 | 12:45</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Okinoumi - Chiyonokuni</b></span>
+                        <b>14.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.82</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:14.03.2018 (11:50)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.82</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2876152467</b><time>13.03.2018 | 12:42</time>
+    </div>
+    <label for="hisChekHide-2876152467" class="hisName">
+                    <b>Haru Basho. Osaka<br>Asanoyama - Ikioi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.9    </div>
+    <input id="hisChekHide-2876152467" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2876152467"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2876152467 from 13.03.2018 | 12:42</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Asanoyama - Ikioi</b></span>
+                        <b>14.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.9</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:14.03.2018 (11:49)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.9</td>
+        <td class="ce" style="color: #000000;">
+            <b>38</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2873620101</b><time>12.03.2018 | 22:58</time>
+    </div>
+    <label for="hisChekHide-2873620101" class="hisName">
+                    <b>Haru Basho. Osaka<br>Yoshikaze - Kaisei</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.74    </div>
+    <input id="hisChekHide-2873620101" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2873620101"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2873620101 from 12.03.2018 | 22:58</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Yoshikaze - Kaisei</b></span>
+                        <b>13.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W2</td>
+                    <td class="ce" rowspan="2">1.74</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:13.03.2018 (12:02)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.74</td>
+        <td class="ce" style="color: #000000;">
+            <b>34.8</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2873616111</b><time>12.03.2018 | 22:58</time>
+    </div>
+    <label for="hisChekHide-2873616111" class="hisName">
+                    <b>Haru Basho. Osaka<br>Mitakeumi - Endo</b>
+            </label>
+    <div class="hisCof" style="background: #ec3636; color: #FFFFFF;">
+        1.6    </div>
+    <input id="hisChekHide-2873616111" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2873616111"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2873616111 from 12.03.2018 | 22:58</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="lose">Haru Basho. Osaka<br>Mitakeumi - Endo</b></span>
+                        <b>13.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.6</td>
+                    <td class="ce" rowspan="2" style="background: #EC3636; color: #FFFFFF;">
+                        loss                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 0:1 (0:1)                        <br>Time of processing:13.03.2018 (12:05)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.6</td>
+        <td class="ce" style="">
+            <b>Loss</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div><div class="cupHisNew ">
+    <div class="time">
+        <b>Bet slip№2873614329</b><time>12.03.2018 | 22:57</time>
+    </div>
+    <label for="hisChekHide-2873614329" class="hisName">
+                    <b>Haru Basho. Osaka<br>Kakuryu - Tamawashi</b>
+            </label>
+    <div class="hisCof" style="background: #55C014; color: #FFFFFF;">
+        1.65    </div>
+    <input id="hisChekHide-2873614329" type="checkbox" name="hisChekHide">
+    <label for="hisChekHide-2873614329"></label>
+    <div class="hisFullProp">
+                                                <table class="table_prop">
+                    <tr>
+                        <td colspan="3">
+                            <b>Bet slip №2873614329 from 12.03.2018 | 22:57</b>
+                        </td>
+                        <td class="ri" colspan="2">
+                            Bet type:Single bet                        </td>
+                    </tr>
+                                            <tr class="header_line">
+                            <th style="width: 20px;"></th>
+                            <th>Game</th>
+                            <th style="width: 120px;">Stake</th>
+                            <th style="width: 100px;">Odds</th>
+                            <th style="width: 85px;">Status</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                        </tr>
+                                                                                        <tr>
+                    <td></td>
+                    <td class="ha">
+                        <span><b class="win">Haru Basho. Osaka<br>Kakuryu - Tamawashi</b></span>
+                        <b>13.03.2018 | 10:00</b>
+                    </td>
+                    <td class="ce" rowspan="2">W1</td>
+                    <td class="ce" rowspan="2">1.65</td>
+                    <td class="ce" rowspan="2" style="background: #55C014; color: #FFFFFF;">
+                        win                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Result: 1:0 (1:0)                        <br>Time of processing:13.03.2018 (12:07)                                                                                            </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div id="dvH"></div>
+                    </td>
+                </tr>
+                                        <tr>
+        <td colspan="2"></td>
+        <td class="ce">20 SEK</td>
+        <td class="ce" id="tdH">1.65</td>
+        <td class="ce" style="color: #000000;">
+            <b>33</b>
+        </td>
+    </tr>
+</table></div>                                                                    </div>
+    </div>
+</div>
+</body>
+</html>
