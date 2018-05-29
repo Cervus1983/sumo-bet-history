@@ -3,7 +3,7 @@ library(stringr)
 library(tidyverse)
 
 # https://www.marathonbet.com/en/myaccount/myaccount.htm
-"html/marathonbet/2018.03" %>% 
+"html/marathonbet/2018.05" %>% 
 	list.files(
 		pattern = ".+\\.html$",
 		full.names = TRUE
@@ -22,17 +22,18 @@ library(tidyverse)
 		ts = Date %>% 
 			as.POSIXct(format = "%d %b%H:%M") %>% 
 			format("%Y-%m-%d %H:%M"),
-		winner = sub("^Winner - ", "", Bet),
+		#winner = sub("^Winner - ", "", Bet),
+		winner = str_match(Bet, "Fight Result \\(2 way\\) - (.+) To Win")[,2],
 		stake = as.numeric(str_extract(`Total Stake`, "\\d+\\.?\\d*")),
 		return = as.numeric(str_extract(Return, "\\d+\\.?\\d*")),
 		status = Status,
 		odds = Odds
 	) %>% 
-	#View() %>% 
-	write_csv("csv/marathonbet/2018.03.csv")
+	#View()
+	write_csv("csv/marathonbet/2018.05.csv")
 
 # https://1xbet.com/en/office/history/
-"html/1xbet/2018.03.html" %>% 
+"html/1xbet/2018.05.html" %>% 
 	read_html() %>% 
 	html_nodes("table") %>% 
 	lapply(
@@ -60,8 +61,8 @@ library(tidyverse)
 	) %>% 
 	do.call(rbind, .) %>% 
 	replace_na(replace = list(return = 0)) %>% 
-	#View() %>% 
-	write_csv("csv/1xbet/2018.03.csv")
+	#View()
+	write_csv("csv/1xbet/2018.05.csv")
 
 balance <- function(fn) fn %>% 
 	read_csv() %>% 
@@ -79,10 +80,9 @@ balance <- function(fn) fn %>%
 		)
 	)
 
-c(
-	"csv/marathonbet/2018.03.csv",
-	"csv/1xbet/2018.03.csv"
-) %>% 
+"csv" %>% 
+	list.files(pattern = "\\.csv$", full.names = TRUE, recursive = TRUE) %>% 
+	setdiff(., "csv/marathonbet/2018.01.csv") %>% 
 	sapply(
 		balance,
 		simplify = FALSE
